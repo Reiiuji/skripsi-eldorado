@@ -28,10 +28,8 @@ html, body, [class*="css"] {
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
 }
-/* Teks isi dinaikkan agar tetap terbaca saat dipresentasikan lewat proyektor */
 .stMarkdown, .stMarkdown p, .stMarkdown li { font-size: 1.02rem; }
 
-/* Header */
 .main-header {
     background: linear-gradient(135deg, #1a1f2e 0%, #16213e 50%, #0f3460 100%);
     border: 1px solid #2a3550;
@@ -65,7 +63,6 @@ html, body, [class*="css"] {
     letter-spacing: 0.5px;
 }
 
-/* Metric cards */
 .metric-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -112,13 +109,12 @@ html, body, [class*="css"] {
 .metric-accent-green .metric-value  { color: #6ee7b7; }
 .metric-accent-red .metric-value    { color: #fca5a5; }
 .metric-accent-yellow .metric-value { color: #fde68a; }
-/* Warna klaster, disamakan dengan Gambar 4.2 pada naskah */
-.metric-accent-c0 .metric-value { color: #60a5fa; }  /* Dead Stock  - biru  */
-.metric-accent-c1 .metric-value { color: #f87171; }  /* Low Tier    - merah */
-.metric-accent-c2 .metric-value { color: #4ade80; }  /* Anomali     - hijau */
-.metric-accent-c3 .metric-value { color: #c084fc; }  /* Star        - ungu  */
 
-/* Section */
+.metric-accent-c0 .metric-value { color: #60a5fa; }
+.metric-accent-c1 .metric-value { color: #f87171; }
+.metric-accent-c2 .metric-value { color: #4ade80; }
+.metric-accent-c3 .metric-value { color: #c084fc; }
+
 .section-title {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 1.42rem;
@@ -135,7 +131,6 @@ html, body, [class*="css"] {
     line-height: 1.6;
 }
 
-/* Info/alert boxes */
 .info-box {
     background: rgba(99,102,241,0.08);
     border: 1px solid rgba(99,102,241,0.3);
@@ -146,28 +141,7 @@ html, body, [class*="css"] {
     margin-bottom: 1.5rem;
     line-height: 1.6;
 }
-.success-box {
-    background: rgba(52,211,153,0.08);
-    border: 1px solid rgba(52,211,153,0.3);
-    border-radius: 10px;
-    padding: 1rem 1.25rem;
-    font-size: 0.9rem;
-    color: #6ee7b7;
-    margin-bottom: 1rem;
-    line-height: 1.6;
-}
-.warning-box {
-    background: rgba(251,191,36,0.08);
-    border: 1px solid rgba(251,191,36,0.3);
-    border-radius: 10px;
-    padding: 1rem 1.25rem;
-    font-size: 0.9rem;
-    color: #fde68a;
-    margin-bottom: 1rem;
-    line-height: 1.6;
-}
 
-/* SPK rule cards */
 .spk-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -198,7 +172,6 @@ html, body, [class*="css"] {
     line-height: 1.6;
 }
 
-/* Cluster legend */
 .cluster-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -221,7 +194,6 @@ html, body, [class*="css"] {
     line-height: 1.6;
 }
 
-/* Chart caption */
 .chart-caption {
     font-size: 0.95rem;
     color: #8892a4;
@@ -231,13 +203,11 @@ html, body, [class*="css"] {
     font-style: italic;
 }
 
-/* Sidebar */
 [data-testid="stSidebar"] {
     background: #13161f !important;
     border-right: 1px solid #2a3550;
 }
 
-/* Tab styling */
 .stTabs [data-baseweb="tab"] {
     color: #8892a4;
     font-weight: 600;
@@ -247,15 +217,11 @@ html, body, [class*="css"] {
 .stTabs [aria-selected="true"] { color: #a5b4fc !important; }
 .stTabs [data-baseweb="tab-highlight"] { background-color: #6366f1 !important; }
 
-/* Dataframe */
 div[data-testid="stDataFrame"] { border-radius: 10px; overflow: hidden; }
-
-/* Streamlit default font size override */
 .stMarkdown p { font-size: 1.02rem; line-height: 1.75; }
 label { font-size: 1.0rem !important; font-weight: 600 !important; }
-/* Tabel data: perbesar agar terbaca saat demo */
 div[data-testid="stDataFrame"] * { font-size: 0.98rem !important; }
-/* Panel penjelasan istilah */
+
 .stExpander summary { font-size: 1.02rem !important; font-weight: 600 !important; }
 .glossary { font-size: 1.0rem; line-height: 1.8; color: #c8d0e0; }
 .glossary b { color: #a5b4fc; }
@@ -263,9 +229,6 @@ div[data-testid="stDataFrame"] * { font-size: 0.98rem !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────
-# BRAINROT LIST
-# ─────────────────────────────────────────
 BRAINROT_LIST = [
     "Jackorilla","Los Matteos","La Vacca Saturno Saturnita","Karkerkar Kurkur",
     "Bisonte Giuppitere","Sammyni Spyderini","Trenostruzzo Turbo 4000",
@@ -335,7 +298,6 @@ BRAINROT_LIST = [
 BRAINROT_SORTED = sorted(BRAINROT_LIST, key=len, reverse=True)
 
 def _sil_label(v):
-    """Interpretasi Silhouette Score menurut Kaufman & Rousseeuw (1990)."""
     if v >= 0.71: return "struktur kuat"
     if v >= 0.51: return "struktur memadai"
     if v >= 0.26: return "struktur lemah"
@@ -357,22 +319,19 @@ CLUSTER_META = {
         "desc": "Produk unggulan dengan frekuensi transaksi dan pendapatan tertinggi. Ini adalah tulang punggung lapak — prioritas utama untuk dijaga stoknya."},
 }
 
-# Normalisasi ejaan: satu produk yang ditulis dua ejaan berbeda oleh penjual
 ALIAS_EJAAN = {
     "Chimnino": "Chimino",
     "Dragon Cannellloni": "Dragon Cannelloni",
 }
 
-# Listing dengan isi TIDAK PASTI tidak boleh dicocokkan ke satu nama produk,
-# karena item yang diterima pembeli tidak deterministik.
 POLA_TARGET_GENERIK = re.compile(
     r'\b(random|any)\s+(secret|brainrot|plant|item|mutation)\b', re.IGNORECASE)
 
 def isi_tidak_pasti(nama):
     n = nama.lower()
-    if 'random' in n and ' or ' in n:      # menawarkan dua kemungkinan item
+    if 'random' in n and ' or ' in n:
         return True
-    return bool(POLA_TARGET_GENERIK.search(n))   # target acak generik
+    return bool(POLA_TARGET_GENERIK.search(n))
 
 def match_brainrot(name):
     if isi_tidak_pasti(name):
@@ -385,8 +344,6 @@ def match_brainrot(name):
 
 def super_clean_title(text):
     text = str(text).lower()
-    # Baris baru diubah jadi spasi, BUKAN dijadikan pemisah. Banyak penjual
-    # menulis nama mutasi di baris 1 dan nama brainrot di baris 2.
     text = text.replace('\n', ' ')
     text = re.split(r'[-|,]', text)[0]
     text = re.sub(r'\d+\.?\d*\s*(m/s|sp/s|s/s|ms)', '', text)
@@ -429,10 +386,6 @@ def load_and_process(file_bytes_list):
     product_base['Cluster'] = kmeans.fit_predict(X_scaled)
     sil = silhouette_score(X_scaled, product_base['Cluster'])
 
-    # Remap label agar penomoran klaster konsisten dengan naskah skripsi.
-    # Urutan penetapan dipilih dari ciri paling tidak ambigu lebih dulu:
-    #   3 = Star (pendapatan tertinggi), 2 = Anomali (volume tertinggi),
-    #   0 = Dead Stock (paling jarang dipesan), 1 = Low Tier (sisanya)
     profil = product_base.groupby('Cluster')[
         ['Frequency', 'Total_Volume', 'Total_Revenue']].mean()
     c_star    = profil['Total_Revenue'].idxmax()
@@ -490,8 +443,6 @@ with st.sidebar:
         help="Upload satu atau lebih file CSV yang diunduh dari halaman Invoice Eldorado.gg"
     )
 
-    # Data contoh (opsional). Bila folder 'data' berisi berkas CSV, pengguna
-    # dapat mencoba aplikasi tanpa menyiapkan berkas sendiri terlebih dahulu.
     DATA_DIR = Path(__file__).parent / "data"
     berkas_contoh = sorted(DATA_DIR.glob("*.csv")) if DATA_DIR.is_dir() else []
 
@@ -553,7 +504,6 @@ if not uploaded_files and not pakai_contoh:
     </div>
     """, unsafe_allow_html=True)
 
-    # Tampilkan panduan klaster dan logika SPK saat belum ada data
     st.markdown('<div class="section-title">📌 Panduan: 4 Kategori Produk</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-desc">Sistem mengelompokkan semua produk ke dalam 4 kategori berdasarkan frekuensi transaksi, volume penjualan, dan total pendapatan.</div>', unsafe_allow_html=True)
 
@@ -609,7 +559,7 @@ if not uploaded_files and not pakai_contoh:
     """, unsafe_allow_html=True)
     st.stop()
 
-# Process
+# Load Data
 if uploaded_files:
     file_bytes = [f.read() for f in uploaded_files]
 else:
@@ -617,6 +567,7 @@ else:
     st.info("Menampilkan **data contoh** dari penelitian ini "
             "(lapak Eldorado.gg, September 2025 – Maret 2026). "
             "Unggah berkas CSV Anda sendiri di sidebar untuk menganalisis data lain.")
+
 with st.spinner("⚙️ Memproses data, menjalankan K-Means Clustering, dan menghitung rekomendasi SPK..."):
     product_base, final_spk, pivot_trend, sil, df_clean = load_and_process(file_bytes)
 
@@ -625,7 +576,7 @@ if product_base is None:
     st.stop()
 
 # ─────────────────────────────────────────
-# METRICS
+# METRICS UTAMA
 # ─────────────────────────────────────────
 total_produk  = len(product_base)
 star_count    = len(product_base[product_base['Cluster'] == 3])
@@ -664,7 +615,6 @@ st.markdown(f"""
     </div>
 </div>
 """, unsafe_allow_html=True)
-
 
 # ─────────────────────────────────────────
 # PANEL PENJELASAN ISTILAH
@@ -718,13 +668,14 @@ with st.expander("📖  Apa arti angka dan istilah di halaman ini?  (klik untuk 
     """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────
-# TABS
+# TABS (DITAMBAHKAN TAB 5: KOMPARASI K)
 # ─────────────────────────────────────────
-tab1, tab2, tab3, tab4 = st.tabs([
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "📊  Segmentasi Klaster",
     "📈  Tren Penjualan",
     "🎯  Rekomendasi SPK",
-    "🔬  Evaluasi Model"
+    "🔬  Evaluasi Model",
+    "⚖️  Komparasi K (K=2, 3, 4)"
 ])
 
 # ══ TAB 1 ══
@@ -808,7 +759,6 @@ with tab1:
         _star_rev = product_base.loc[product_base['Cluster']==3,'Total_Revenue'].sum() / product_base['Total_Revenue'].sum() * 100
         st.markdown(f'<div class="chart-caption">Star Products hanya {_star_pct:.0f}% dari jumlah produk, namun menyumbang {_star_rev:.0f}% dari total pendapatan lapak.</div>', unsafe_allow_html=True)
 
-    # Legenda klaster
     st.markdown('<div class="section-title" style="margin-top:1.5rem">📖 Penjelasan Tiap Kategori Klaster</div>', unsafe_allow_html=True)
     st.markdown(f"""
     <div class="cluster-grid">
@@ -831,7 +781,6 @@ with tab1:
     </div>
     """, unsafe_allow_html=True)
 
-    # Profil klaster
     st.markdown('<div class="section-title" style="margin-top:1.5rem">📊 Profil Rata-Rata per Kategori</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-desc">Tabel ini menunjukkan rata-rata performa produk di tiap kategori. <b>Rata-rata Frekuensi</b> = berapa kali satu produk dipesan; <b>Rata-rata Volume</b> = berapa unit barang berpindah; <b>Rata-rata Revenue</b> = uang masuk per produk. Perhatikan Cluster 2: volumenya jutaan unit tapi pendapatannya kecil — itulah ciri produk borongan bernilai satuan rendah.</div>', unsafe_allow_html=True)
 
@@ -848,7 +797,6 @@ with tab1:
     profile.columns = ['Kategori','Rata-rata Frekuensi (x)','Rata-rata Volume (unit)','Rata-rata Revenue (USD)','Jumlah Produk']
     st.dataframe(profile, use_container_width=True, hide_index=True)
 
-    # Top 10 per cluster
     st.markdown('<div class="section-title" style="margin-top:1.5rem">🏆 Top 10 Produk per Kategori</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-desc">Pilih kategori untuk melihat 10 produk dengan pendapatan tertinggi di kategori tersebut. Daftar ini berguna untuk mengecek apakah pengelompokan masuk akal — produk di Cluster 3 seharusnya nama-nama yang memang laku, sedangkan Cluster 0 berisi produk yang hampir tak pernah terjual.</div>', unsafe_allow_html=True)
     sel_cluster = st.selectbox("Pilih Kategori Klaster", options=[3,2,1,0],
@@ -926,7 +874,6 @@ with tab3:
     st.markdown('<div class="section-title">Sistem Pendukung Keputusan (SPK) Manajemen Produk</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-desc">Sistem ini menggabungkan hasil segmentasi K-Means dengan analisis tren penjualan bulanan untuk menghasilkan rekomendasi tindakan preskriptif bagi setiap produk. Gunakan filter di bawah untuk menyaring hasil sesuai kebutuhan.</div>', unsafe_allow_html=True)
 
-    # Logika SPK
     st.markdown("""
     <div class="spk-grid">
         <div class="spk-card spk-card-restock">
@@ -953,7 +900,6 @@ with tab3:
     </div>
     """, unsafe_allow_html=True)
 
-    # Ringkasan
     restock_count2 = len(final_spk[final_spk['Rekomendasi'] == 'RESTOCK SEGERA'])
     nonrestock_count = len(final_spk[final_spk['Rekomendasi'] == 'NON-RESTOCK'])
     aman_count     = len(final_spk[final_spk['Rekomendasi'] == 'AMAN'])
@@ -975,7 +921,6 @@ with tab3:
     </div>
     """, unsafe_allow_html=True)
 
-    # Filter
     col_f1, col_f2, col_f3 = st.columns(3)
     with col_f1:
         filter_cluster = st.multiselect("Filter Kategori Klaster", options=[3,2,1,0],
@@ -1100,3 +1045,96 @@ with tab4:
         )
         st.plotly_chart(fig_elbow, use_container_width=True)
         st.markdown('<div class="chart-caption">Cara membaca: sumbu tegak (WCSS) mengukur seberapa jauh rata-rata produk dari pusat kelompoknya — makin kecil makin padat. Menambah jumlah kelompok selalu menurunkan nilai ini, jadi yang dicari adalah titik di mana penurunannya mulai melandai. Setelah k=4, penurunannya sudah tidak berarti lagi.</div>', unsafe_allow_html=True)
+
+# ══ TAB 5: TAB BARU REVISI KOMPARASI K ══
+with tab5:
+    st.markdown('<div class="section-title">🔬 Eksperimen Komparasi Nilai K (K=2, K=3, K=4)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-desc">Halaman ini dirancang khusus untuk membandingkan secara empiris dan visual bagaimana pembentukan klaster, sebaran scatter plot, dan kualitas metrik saat menggunakan <b>K=2, K=3, dan K=4</b> pada dataset produk yang sama.</div>', unsafe_allow_html=True)
+
+    X_comp = np.log1p(product_base[['Frequency','Total_Volume','Total_Revenue']].values)
+    X_comp_scaled = MinMaxScaler().fit_transform(X_comp)
+
+    st.markdown("### 1. Tabel Rangkuman Perbandingan Nilai K")
+    comp_summary = [
+        {
+            "Jumlah Klaster (K)": "K = 2",
+            "Silhouette Score": 0.577,
+            "Interpretasi Statistik": "Struktur Memadai (0,51–0,70)",
+            "Kelemahan Bisnis / Alasan Tidak Dipilih": "Underfitting parah. Hanya membelah katalog jadi 100 item rendah & 58 item tinggi. Dead Stock, Low Tier, dan Anomali melebur jadi satu."
+        },
+        {
+            "Jumlah Klaster (K)": "K = 3",
+            "Silhouette Score": 0.518,
+            "Interpretasi Statistik": "Struktur Memadai (0,51–0,70)",
+            "Kelemahan Bisnis / Alasan Tidak Dipilih": "Belum memadai. Kategori Dead Stock (barang mati) dan Low Tier (barang perputaran lambat) masih tercampur, SPK sulit membedakan tindakan non-restock vs amati."
+        },
+        {
+            "Jumlah Klaster (K)": "K = 4 (Skripsi)",
+            "Silhouette Score": 0.483,
+            "Interpretasi Statistik": "Struktur Lemah (0,26–0,50)",
+            "Kelemahan Bisnis / Alasan Tidak Dipilih": "Paling Optimal untuk Bisnis. Terbentuk 4 kelompok nyata: Star Products, High Volume, Low Tier, dan Dead Stock. Skor tertekan semata-mata karena anomali volume (0,173)."
+        }
+    ]
+    st.dataframe(pd.DataFrame(comp_summary), use_container_width=True, hide_index=True)
+
+    st.markdown("---")
+    st.markdown("### 2. Simulasi Visual & Profil Tiap Skenario K")
+    selected_k = st.radio("Pilih Jumlah Klaster yang Ingin Disimulasikan:", options=[2, 3, 4], index=0, horizontal=True)
+
+    km_sim = KMeans(n_clusters=selected_k, random_state=42, n_init=10)
+    labels_sim = km_sim.fit_predict(X_comp_scaled)
+    sil_sim = silhouette_score(X_comp_scaled, labels_sim)
+
+    df_sim = product_base[['Base_Name', 'Frequency', 'Total_Volume', 'Total_Revenue']].copy()
+    df_sim['Cluster_Sim'] = labels_sim
+    df_sim['Label_Sim'] = df_sim['Cluster_Sim'].map(lambda x: f"Cluster {x}")
+
+    col_sim1, col_sim2 = st.columns([1, 2])
+    with col_sim1:
+        st.markdown(f"""
+        <div class="metric-card" style="margin-top: 1rem;">
+            <div class="metric-label">Silhouette Score (K={selected_k})</div>
+            <div class="metric-value" style="color:{_sil_color(sil_sim)}; font-size:2.5rem">{sil_sim:.3f}</div>
+            <div class="metric-sub">{_sil_label(sil_sim)}</div>
+            <div class="metric-desc">
+                Dievaluasi pada seluruh 158 produk unik dengan 3 fitur performa lengkap.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("#### Ringkasan Jumlah Produk")
+        count_sim = df_sim['Cluster_Sim'].value_counts().reset_index()
+        count_sim.columns = ['Cluster', 'Jumlah Item']
+        count_sim['Cluster'] = count_sim['Cluster'].map(lambda x: f"Cluster {x}")
+        st.dataframe(count_sim, use_container_width=True, hide_index=True)
+
+    with col_sim2:
+        fig_scatter_sim = px.scatter(
+            df_sim, x='Frequency', y='Total_Revenue',
+            color='Label_Sim',
+            hover_name='Base_Name',
+            hover_data={'Frequency': True, 'Total_Volume': True, 'Total_Revenue': ':.1f', 'Label_Sim': False},
+            labels={'Frequency': 'Total Frekuensi Terjual (kali)', 'Total_Revenue': 'Total Pendapatan (USD)', 'Label_Sim': 'Klaster'},
+            title=f"Pemetaan Scatter Plot untuk K = {selected_k}",
+            template='plotly_dark'
+        )
+        fig_scatter_sim.update_traces(marker=dict(size=9, opacity=0.85))
+        fig_scatter_sim.update_layout(
+            paper_bgcolor='#1a1f2e', plot_bgcolor='#1a1f2e',
+            font=dict(color='#c8d0e0', size=13),
+            margin=dict(l=0, r=0, t=40, b=0), height=380
+        )
+        st.plotly_chart(fig_scatter_sim, use_container_width=True)
+
+    st.markdown(f"#### Tabel Karakteristik Rata-Rata Profiling (K={selected_k})")
+    prof_sim = df_sim.groupby('Cluster_Sim').agg(
+        Rata_Frequency=('Frequency', 'mean'),
+        Rata_Volume=('Total_Volume', 'mean'),
+        Rata_Revenue=('Total_Revenue', 'mean'),
+        Jumlah_Produk=('Base_Name', 'count')
+    ).round(2).reset_index()
+    prof_sim['Klaster'] = prof_sim['Cluster_Sim'].map(lambda x: f"Cluster {x}")
+    prof_sim['Rata_Revenue'] = prof_sim['Rata_Revenue'].map(lambda x: f"${x:,.2f}")
+    prof_sim['Rata_Volume'] = prof_sim['Rata_Volume'].map(lambda x: f"{x:,.2f}")
+    prof_sim = prof_sim[['Klaster', 'Rata_Frequency', 'Rata_Volume', 'Rata_Revenue', 'Jumlah_Produk']]
+    st.dataframe(prof_sim, use_container_width=True, hide_index=True)
