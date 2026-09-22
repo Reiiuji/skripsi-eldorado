@@ -229,6 +229,9 @@ div[data-testid="stDataFrame"] * { font-size: 0.98rem !important; }
 </style>
 """, unsafe_allow_html=True)
 
+# ─────────────────────────────────────────
+# BRAINROT LIST
+# ─────────────────────────────────────────
 BRAINROT_LIST = [
     "Jackorilla","Los Matteos","La Vacca Saturno Saturnita","Karkerkar Kurkur",
     "Bisonte Giuppitere","Sammyni Spyderini","Trenostruzzo Turbo 4000",
@@ -668,7 +671,7 @@ with st.expander("📖  Apa arti angka dan istilah di halaman ini?  (klik untuk 
     """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────
-# TABS (DITAMBAHKAN TAB 5: KOMPARASI K)
+# TABS
 # ─────────────────────────────────────────
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "📊  Segmentasi Klaster",
@@ -1046,33 +1049,36 @@ with tab4:
         st.plotly_chart(fig_elbow, use_container_width=True)
         st.markdown('<div class="chart-caption">Cara membaca: sumbu tegak (WCSS) mengukur seberapa jauh rata-rata produk dari pusat kelompoknya — makin kecil makin padat. Menambah jumlah kelompok selalu menurunkan nilai ini, jadi yang dicari adalah titik di mana penurunannya mulai melandai. Setelah k=4, penurunannya sudah tidak berarti lagi.</div>', unsafe_allow_html=True)
 
-# ══ TAB 5: TAB BARU REVISI KOMPARASI K ══
+# ══ TAB 5: TAB KOMPARASI K DENGAN LABEL BISNIS GABUNGAN ══
 with tab5:
     st.markdown('<div class="section-title">🔬 Eksperimen Komparasi Nilai K (K=2, K=3, K=4)</div>', unsafe_allow_html=True)
-    st.markdown('<div class="section-desc">Halaman ini dirancang khusus untuk membandingkan secara empiris dan visual bagaimana pembentukan klaster, sebaran scatter plot, dan kualitas metrik saat menggunakan <b>K=2, K=3, dan K=4</b> pada dataset produk yang sama.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-desc">Halaman ini membandingkan pembentukan klaster, sebaran scatter plot, dan kategori bisnis gabungan saat menggunakan <b>K=2, K=3, dan K=4</b> pada dataset yang sama.</div>', unsafe_allow_html=True)
 
     X_comp = np.log1p(product_base[['Frequency','Total_Volume','Total_Revenue']].values)
     X_comp_scaled = MinMaxScaler().fit_transform(X_comp)
 
-    st.markdown("### 1. Tabel Rangkuman Perbandingan Nilai K")
+    st.markdown("### 1. Tabel Rangkuman Peleburan Kategori Bisnis Sesuai Nilai K")
     comp_summary = [
         {
-            "Jumlah Klaster (K)": "K = 2",
-            "Silhouette Score": 0.577,
-            "Interpretasi Statistik": "Struktur Memadai (0,51–0,70)",
-            "Kelemahan Bisnis / Alasan Tidak Dipilih": "Underfitting parah. Hanya membelah katalog jadi 100 item rendah & 58 item tinggi. Dead Stock, Low Tier, dan Anomali melebur jadi satu."
+            "Skenario": "K = 2",
+            "Kategori Klaster Terbentuk": "1. Low Tier & Dead Stock (100 item)\n2. High Performance & Anomaly (58 item)",
+            "Silhouette Score": "0.577 (Memadai)",
+            "Komposisi Peleburan dari K=4": "Dead Stock (69) + Low Tier (31) melebur; Star Products (42) + Anomali (11) + sisa Low Tier (5) melebur.",
+            "Kelemahan Bisnis / Alasan Tidak Dipilih": "Underfitting parah. Rekomendasi SPK hanya bisa biner (Restock / Non-Restock). Barang mati bercampur barang lambat, barang omzet tinggi bercampur komoditas koin."
         },
         {
-            "Jumlah Klaster (K)": "K = 3",
-            "Silhouette Score": 0.518,
-            "Interpretasi Statistik": "Struktur Memadai (0,51–0,70)",
-            "Kelemahan Bisnis / Alasan Tidak Dipilih": "Belum memadai. Kategori Dead Stock (barang mati) dan Low Tier (barang perputaran lambat) masih tercampur, SPK sulit membedakan tindakan non-restock vs amati."
+            "Skenario": "K = 3",
+            "Kategori Klaster Terbentuk": "1. Low Tier & Dead Stock (93 item)\n2. Star Products & Active Items (53 item)\n3. High Volume Anomaly (12 item)",
+            "Silhouette Score": "0.589 (Memadai)",
+            "Komposisi Peleburan dari K=4": "Anomali koin berhasil memisah (12 item); Star Products murni (42) + Low Tier aktif (11); Dead Stock (69) masih menelan sebagian besar Low Tier (24).",
+            "Kelemahan Bisnis / Alasan Tidak Dipilih": "Belum optimal. Kategori Dead Stock belum lepas dari Low Tier, sehingga sistem tidak bisa membedakan mana barang yang wajib dihentikan pengadaannya dengan barang yang cukup dipantau."
         },
         {
-            "Jumlah Klaster (K)": "K = 4 (Skripsi)",
-            "Silhouette Score": 0.483,
-            "Interpretasi Statistik": "Struktur Lemah (0,26–0,50)",
-            "Kelemahan Bisnis / Alasan Tidak Dipilih": "Paling Optimal untuk Bisnis. Terbentuk 4 kelompok nyata: Star Products, High Volume, Low Tier, dan Dead Stock. Skor tertekan semata-mata karena anomali volume (0,173)."
+            "Skenario": "K = 4 (Skripsi)",
+            "Kategori Klaster Terbentuk": "1. Dead Stock (69 item)\n2. Low Tier (36 item)\n3. High Volume Anomaly (11 item)\n4. Star Products (42 item)",
+            "Silhouette Score": "0.483 (Lemah)",
+            "Komposisi Peleburan dari K=4": "Masing-masing kategori berdiri sendiri secara mandiri tanpa ada peleburan kelompok.",
+            "Kelemahan Bisnis / Alasan Tidak Dipilih": "Paling Optimal untuk Bisnis. Memfasilitasi 4 keputusan operasional yang berbeda nyata: RESTOCK SEGERA (9), AMAN (80), dan NON-RESTOCK (69). Skor tertekan semata-mata karena variansi volume koin borongan (0,173)."
         }
     ]
     st.dataframe(pd.DataFrame(comp_summary), use_container_width=True, hide_index=True)
@@ -1087,7 +1093,63 @@ with tab5:
 
     df_sim = product_base[['Base_Name', 'Frequency', 'Total_Volume', 'Total_Revenue']].copy()
     df_sim['Cluster_Sim'] = labels_sim
-    df_sim['Label_Sim'] = df_sim['Cluster_Sim'].map(lambda x: f"Cluster {x}")
+
+    if selected_k == 2:
+        profil_k = df_sim.groupby('Cluster_Sim')['Total_Revenue'].mean()
+        c_high = profil_k.idxmax()
+        c_low = profil_k.idxmin()
+        label_dict = {
+            c_low: '💀📦 Low Tier & Dead Stock (Pasif/Mati)',
+            c_high: '⭐⚡ High Performance & Anomaly (Aktif/Borongan)'
+        }
+        color_discrete = {
+            '💀📦 Low Tier & Dead Stock (Pasif/Mati)': '#60a5fa',
+            '⭐⚡ High Performance & Anomaly (Aktif/Borongan)': '#f87171'
+        }
+
+    elif selected_k == 3:
+        prof_v = df_sim.groupby('Cluster_Sim')['Total_Volume'].mean()
+        prof_r = df_sim.groupby('Cluster_Sim')['Total_Revenue'].mean()
+
+        c_anom = prof_v.idxmax()
+        sisa_r = prof_r.drop(index=c_anom)
+        c_star = sisa_r.idxmax()
+        c_dead = sisa_r.idxmin()
+
+        label_dict = {
+            c_dead: '💀📦 Low Tier & Dead Stock (Pasif/Mati)',
+            c_star: '⭐ Star Products & Active Items (Unggulan)',
+            c_anom: '⚡ High Volume Anomaly (Borongan)'
+        }
+        color_discrete = {
+            '💀📦 Low Tier & Dead Stock (Pasif/Mati)': '#60a5fa',
+            '⭐ Star Products & Active Items (Unggulan)': '#c084fc',
+            '⚡ High Volume Anomaly (Borongan)': '#4ade80'
+        }
+
+    else:
+        prof_r = df_sim.groupby('Cluster_Sim')['Total_Revenue'].mean()
+        c_star = prof_r.idxmax()
+        sisa = prof_r.drop(index=c_star)
+        c_anom = df_sim.groupby('Cluster_Sim')['Total_Volume'].mean().loc[sisa.index].idxmax()
+        sisa = sisa.drop(index=c_anom)
+        c_dead = df_sim.groupby('Cluster_Sim')['Frequency'].mean().loc[sisa.index].idxmin()
+        c_low = [c for c in sisa.index if c != c_dead][0]
+
+        label_dict = {
+            c_dead: '💀 Cluster 0 — Dead Stock',
+            c_low:  '📦 Cluster 1 — Low Tier',
+            c_anom: '⚡ Cluster 2 — High Volume Anomaly',
+            c_star: '⭐ Cluster 3 — Star Products'
+        }
+        color_discrete = {
+            '💀 Cluster 0 — Dead Stock': '#60a5fa',
+            '📦 Cluster 1 — Low Tier': '#f87171',
+            '⚡ Cluster 2 — High Volume Anomaly': '#4ade80',
+            '⭐ Cluster 3 — Star Products': '#c084fc'
+        }
+
+    df_sim['Label_Sim'] = df_sim['Cluster_Sim'].map(label_dict)
 
     col_sim1, col_sim2 = st.columns([1, 2])
     with col_sim1:
@@ -1102,20 +1164,20 @@ with tab5:
         </div>
         """, unsafe_allow_html=True)
 
-        st.markdown("#### Ringkasan Jumlah Produk")
-        count_sim = df_sim['Cluster_Sim'].value_counts().reset_index()
-        count_sim.columns = ['Cluster', 'Jumlah Item']
-        count_sim['Cluster'] = count_sim['Cluster'].map(lambda x: f"Cluster {x}")
+        st.markdown("#### Ringkasan Jumlah Produk per Kategori")
+        count_sim = df_sim['Label_Sim'].value_counts().reset_index()
+        count_sim.columns = ['Kategori Klaster', 'Jumlah Item']
         st.dataframe(count_sim, use_container_width=True, hide_index=True)
 
     with col_sim2:
         fig_scatter_sim = px.scatter(
             df_sim, x='Frequency', y='Total_Revenue',
             color='Label_Sim',
+            color_discrete_map=color_discrete,
             hover_name='Base_Name',
             hover_data={'Frequency': True, 'Total_Volume': True, 'Total_Revenue': ':.1f', 'Label_Sim': False},
-            labels={'Frequency': 'Total Frekuensi Terjual (kali)', 'Total_Revenue': 'Total Pendapatan (USD)', 'Label_Sim': 'Klaster'},
-            title=f"Pemetaan Scatter Plot untuk K = {selected_k}",
+            labels={'Frequency': 'Total Frekuensi Terjual (kali)', 'Total_Revenue': 'Total Pendapatan (USD)', 'Label_Sim': 'Kategori'},
+            title=f"Pemetaan Scatter Plot Kategori untuk K = {selected_k}",
             template='plotly_dark'
         )
         fig_scatter_sim.update_traces(marker=dict(size=9, opacity=0.85))
@@ -1127,14 +1189,13 @@ with tab5:
         st.plotly_chart(fig_scatter_sim, use_container_width=True)
 
     st.markdown(f"#### Tabel Karakteristik Rata-Rata Profiling (K={selected_k})")
-    prof_sim = df_sim.groupby('Cluster_Sim').agg(
+    prof_sim = df_sim.groupby('Label_Sim').agg(
         Rata_Frequency=('Frequency', 'mean'),
         Rata_Volume=('Total_Volume', 'mean'),
         Rata_Revenue=('Total_Revenue', 'mean'),
         Jumlah_Produk=('Base_Name', 'count')
     ).round(2).reset_index()
-    prof_sim['Klaster'] = prof_sim['Cluster_Sim'].map(lambda x: f"Cluster {x}")
     prof_sim['Rata_Revenue'] = prof_sim['Rata_Revenue'].map(lambda x: f"${x:,.2f}")
     prof_sim['Rata_Volume'] = prof_sim['Rata_Volume'].map(lambda x: f"{x:,.2f}")
-    prof_sim = prof_sim[['Klaster', 'Rata_Frequency', 'Rata_Volume', 'Rata_Revenue', 'Jumlah_Produk']]
+    prof_sim.columns = ['Kategori Klaster', 'Rata-rata Frekuensi (x)', 'Rata-rata Volume (unit)', 'Rata-rata Revenue (USD)', 'Jumlah Produk']
     st.dataframe(prof_sim, use_container_width=True, hide_index=True)
